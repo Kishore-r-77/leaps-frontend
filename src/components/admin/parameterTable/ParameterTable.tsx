@@ -23,6 +23,8 @@ function ParameterTable() {
     ADDCLOSE: "ADDCLOSE",
     EDITCLOSE: "EDITCLOSE",
     INFOCLOSE: "INFOCLOSE",
+    SORT_ASC: "SORT_ASC",
+    SORT_DESC: "SORT_DESC",
   };
 
   const initialValues = {
@@ -33,6 +35,9 @@ function ParameterTable() {
     addOpen: false,
     editOpen: false,
     infoOpen: false,
+    sortBy: "",
+    sortAsc: false,
+    sortDesc: false,
   };
 
   const reducer = (state: any, action: any) => {
@@ -86,6 +91,21 @@ function ParameterTable() {
           ...state,
           infoOpen: false,
         };
+      case ACTIONS.SORT_ASC:
+        const asc = !state.sortAsc;
+        return {
+          ...state,
+          sortAsc: asc,
+          sortBy: action.payload,
+        };
+      case ACTIONS.SORT_DESC:
+        const desc = !state.sortDesc;
+        console.log(action.payload, "from descending");
+        return {
+          ...state,
+          sortDesc: desc,
+          sortBy: action.payload,
+        };
       default:
         return initialValues;
     }
@@ -104,8 +124,8 @@ function ParameterTable() {
   const [pageNo, setpageNo] = useState<number>(0);
   const [pageSize, setpageSize] = useState<number>(5);
   const [isLast, setIsLast] = useState(false);
-  const [totalPages, setTotalPages] = useState(0);
-  const [totalElements, setTotalElements] = useState(0);
+  const [totalPages, setTotalPages] = useState<number>(0);
+  const [totalElements, setTotalElements] = useState<number>(0);
 
   const getData = () => {
     axios
@@ -113,8 +133,8 @@ function ParameterTable() {
         params: {
           pageNo: pageNo,
           pageSize: pageSize,
-          sortBy: "id",
-          sortDir: "asc",
+          sortBy: state.sortBy,
+          sortDir: state.sortAsc ? "asc" : state.sortDesc ? "desc" : null,
         },
         headers: {
           Authorization: `Bearer ${token}`,
@@ -187,7 +207,7 @@ function ParameterTable() {
   useEffect(() => {
     getData();
     return () => {};
-  }, [pageNo, pageSize]);
+  }, [pageNo, pageSize, state.sortAsc, state.sortDesc]);
 
   const nexPage = (e: any) => {
     if (isLast) {
@@ -227,6 +247,7 @@ function ParameterTable() {
         data={data}
         columns={columns}
         ACTIONS={ACTIONS}
+        state={state}
         dispatch={dispatch}
         hardDelete={hardDelete}
       />

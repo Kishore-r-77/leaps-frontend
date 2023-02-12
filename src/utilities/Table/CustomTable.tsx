@@ -1,19 +1,53 @@
-import { Paper } from "@mui/material";
+import { Button, IconButton, Paper } from "@mui/material";
 import Table from "react-bootstrap/Table";
 import styles from "./customTable.module.css";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import InfoIcon from "@mui/icons-material/Info";
-import { TablePagination } from "@mui/material";
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 
-function CustomTable({ data, columns, dispatch, ACTIONS, hardDelete }: any) {
+function CustomTable({
+  data,
+  state,
+  columns,
+  dispatch,
+  ACTIONS,
+  hardDelete,
+}: any) {
+  console.log(state.sortAsc, "asc");
+  console.log(state.sortDesc, "desc");
   return (
     <Paper className={styles.paperStyle}>
       <Table striped bordered hover>
         <thead className={styles.header}>
           <tr>
-            {columns.map((column: { header: string }) => (
-              <th key={column.header}>{column.header}</th>
+            {columns.map((column: { field: string; header: string }) => (
+              <th key={column.header}>
+                {column.header}
+                <span>
+                  <IconButton
+                    onClick={() =>
+                      dispatch({
+                        type: ACTIONS.SORT_ASC,
+                        payload: column.field,
+                      })
+                    }
+                  >
+                    <ArrowUpwardIcon className={styles.icon} />
+                  </IconButton>
+                  <IconButton
+                    onClick={() =>
+                      dispatch({
+                        type: ACTIONS.SORT_DESC,
+                        payload: column.field,
+                      })
+                    }
+                  >
+                    <ArrowDownwardIcon className={styles.icon} />
+                  </IconButton>
+                </span>
+              </th>
             ))}
             <th>Actions</th>
           </tr>

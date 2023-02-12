@@ -1,7 +1,8 @@
 .paperStyle {
   width: 90%;
   margin: 20px auto;
-  overflow-y: auto;
+  overflow-y: scroll;
+  max-height: 350px;
 }
 
 .flexButtons {
@@ -13,5 +14,14 @@
   color: white;
   position: sticky;
   top: 0;
-  z-index: 1;
+}
+
+.icon {
+  max-height: 30px;
+  color: white;
+}
+
+.icon-disabled {
+  max-height: 30px;
+  color: silver;
 }
