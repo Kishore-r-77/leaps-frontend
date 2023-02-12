@@ -7,13 +7,23 @@ import CustomPagination from "../../../utilities/Pagination/CustomPagination";
 import CustomTable from "../../../utilities/Table/CustomTable";
 import ParameterModal from "./ParameterModal";
 import styles from "./parameterTable.module.css";
+import {
+  initialValuesType,
+  recordType,
+} from "../../../TsTypes/ParameterTableTypes";
+import { parameterAction } from "../../../TsTypes/CustomTableTypes";
 
 function ParameterTable() {
+  //data from getall api
   const [data, setData] = useState([]);
-  const [record, setRecord] = useState<any>({});
 
+  //data got after rendering from table
+  const [record, setRecord] = useState<recordType>({} as recordType);
+
+  //getting token from redux
   const token = useAppSelector((state) => state.users.user.accessToken);
 
+  //Storing Actions into a Variable for Reducer
   const ACTIONS = {
     ONCHANGE: "ONCHANGE",
     EDITCHANGE: "EDITCHANGE",
@@ -27,7 +37,8 @@ function ParameterTable() {
     SORT_DESC: "SORT_DESC",
   };
 
-  const initialValues = {
+  //Initial State defined
+  const initialValues: initialValuesType = {
     parameter: "",
     rule: "",
     longDescription: "",
@@ -40,7 +51,9 @@ function ParameterTable() {
     sortDesc: false,
   };
 
-  const reducer = (state: any, action: any) => {
+  //Reducer Function to be used inside UserReducer hook
+  const reducer = (state: initialValuesType, action: parameterAction) => {
+    console.log(action, "action top");
     switch (action.type) {
       case ACTIONS.ONCHANGE:
         return {
@@ -48,6 +61,7 @@ function ParameterTable() {
           [action.fieldName]: action.payload,
         };
       case ACTIONS.EDITCHANGE:
+        console.log(action, "action");
         setRecord((prev: any) => ({
           ...prev,
           [action.fieldName]: action.payload,
@@ -100,7 +114,6 @@ function ParameterTable() {
         };
       case ACTIONS.SORT_DESC:
         const desc = !state.sortDesc;
-        console.log(action.payload, "from descending");
         return {
           ...state,
           sortDesc: desc,
@@ -111,8 +124,10 @@ function ParameterTable() {
     }
   };
 
+  //Creating useReducer Hook
   const [state, dispatch] = useReducer(reducer, initialValues);
 
+  //Columns Defined to Pass into the Custom Table
   const columns = [
     { field: "id", header: "ID" },
     { field: "parameter", header: "Parameter" },
@@ -121,12 +136,14 @@ function ParameterTable() {
     { field: "longDescription", header: "Long Description" },
   ];
 
+  //States Created for Pagination in the Table
   const [pageNo, setpageNo] = useState<number>(0);
   const [pageSize, setpageSize] = useState<number>(5);
   const [isLast, setIsLast] = useState(false);
   const [totalPages, setTotalPages] = useState<number>(0);
   const [totalElements, setTotalElements] = useState<number>(0);
 
+  //Get all Api
   const getData = () => {
     axios
       .get(`http://localhost:8080/parameter/getall-pagination`, {
@@ -151,6 +168,7 @@ function ParameterTable() {
       .catch((err) => console.log(err.message));
   };
 
+  //Add Api
   const handleFormSubmit = async () => {
     const response = await axios.post(
       `http://localhost:8080/parameter/add`,
@@ -169,6 +187,8 @@ function ParameterTable() {
       console.log(err);
     }
   };
+
+  //Edit Api
   const editFormSubmit = async () => {
     const response = await axios.patch(
       `http://localhost:8080/parameter/update/${record.id}`,
@@ -187,6 +207,8 @@ function ParameterTable() {
       console.log(err);
     }
   };
+
+  //Hard Delete Api
   const hardDelete = async (id: number) => {
     const response = await axios.delete(
       `http://localhost:8080/parameter/hard-delete/${id}`,
@@ -204,19 +226,22 @@ function ParameterTable() {
     }
   };
 
+  //UseEffect Function to render data on Screen Based on Dependencies
   useEffect(() => {
     getData();
     return () => {};
   }, [pageNo, pageSize, state.sortAsc, state.sortDesc]);
 
-  const nexPage = (e: any) => {
+  //Pagination Function to navigate to Next page
+  const nexPage = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (isLast) {
       return;
     }
     setpageNo((prev) => prev + 1);
   };
 
-  const prevPage = (e: any) => {
+  //Pagination Function to navigate to Previous page
+  const prevPage = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (pageNo < 0) {
       return;
     }
@@ -247,7 +272,6 @@ function ParameterTable() {
         data={data}
         columns={columns}
         ACTIONS={ACTIONS}
-        state={state}
         dispatch={dispatch}
         hardDelete={hardDelete}
       />

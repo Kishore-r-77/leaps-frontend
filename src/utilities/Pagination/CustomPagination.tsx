@@ -4,6 +4,7 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { Form } from "react-bootstrap";
 import styles from "./customPagination.module.css";
 import { IconButton } from "@mui/material";
+import { customPaginationProps } from "../../TsTypes/CustomPaginationTypes";
 
 function CustomPagination({
   pageNo,
@@ -13,7 +14,7 @@ function CustomPagination({
   setpageSize,
   prevPage,
   nexPage,
-}: any) {
+}: customPaginationProps) {
   return (
     <div>
       <div className={styles.pagination}>

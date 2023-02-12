@@ -1,5 +1,7 @@
 import { TextField } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
+import React from "react";
+import { parameterModalType } from "../../../TsTypes/ParameterModalTypes";
 import CustomModal from "../../../utilities/modal/CustomModal";
 
 function ParameterModal({
@@ -8,7 +10,7 @@ function ParameterModal({
   dispatch,
   ACTIONS,
   handleFormSubmit,
-}: any) {
+}: parameterModalType) {
   const addTitle = "Parameter Add";
   const editTitle = "Parameter Edit";
   const infoTitle = "Parameter Info";
@@ -51,7 +53,7 @@ function ParameterModal({
                 value={state.addOpen ? state.parameter : record.parameter}
                 placeholder="Parameter"
                 label="Parameter"
-                onChange={(e) =>
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   dispatch({
                     type: state.addOpen ? ACTIONS.ONCHANGE : ACTIONS.EDITCHANGE,
                     payload: e.target.value,
@@ -70,7 +72,7 @@ function ParameterModal({
                 value={state.addOpen ? state.rule : record.rule}
                 placeholder="Rule"
                 label="Rule"
-                onChange={(e) =>
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   dispatch({
                     type: state.addOpen ? ACTIONS.ONCHANGE : ACTIONS.EDITCHANGE,
                     payload: e.target.value,
@@ -93,7 +95,7 @@ function ParameterModal({
                 }
                 placeholder="Short Description"
                 label="Short Description"
-                onChange={(e) =>
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   dispatch({
                     type: state.addOpen ? ACTIONS.ONCHANGE : ACTIONS.EDITCHANGE,
                     payload: e.target.value,
@@ -114,7 +116,7 @@ function ParameterModal({
                 }
                 placeholder="Long Description"
                 label="Long Description"
-                onChange={(e) =>
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   dispatch({
                     type: state.addOpen ? ACTIONS.ONCHANGE : ACTIONS.EDITCHANGE,
                     payload: e.target.value,

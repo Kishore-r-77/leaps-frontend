@@ -6,17 +6,15 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import InfoIcon from "@mui/icons-material/Info";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import { customTableProps } from "../../TsTypes/CustomTableTypes";
 
 function CustomTable({
   data,
-  state,
   columns,
   dispatch,
   ACTIONS,
   hardDelete,
-}: any) {
-  console.log(state.sortAsc, "asc");
-  console.log(state.sortDesc, "desc");
+}: customTableProps) {
   return (
     <Paper className={styles.paperStyle}>
       <Table striped bordered hover>
