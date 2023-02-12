@@ -1,0 +1,30 @@
+.navHeader {
+  background-color: crimson;
+  color: white;
+  font-size: 2rem;
+  width: 100%;
+  box-shadow: 10px 10px 10px rgb(0, 0, 0, 0.5);
+  /* position: fixed;
+  inset: 0 auto auto auto; */
+  z-index: 2;
+}
+
+.navList {
+  min-height: 10vh;
+  display: flex;
+  align-items: center;
+  width: 90%;
+  margin: auto;
+}
+
+.navList ul {
+  flex: 1 1 20rem;
+  display: flex;
+  list-style: none;
+  justify-content: space-around;
+  gap: 1rem;
+}
+
+#logo {
+  flex: 2 1 20rem;
+}

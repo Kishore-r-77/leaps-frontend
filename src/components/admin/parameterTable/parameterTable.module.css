@@ -1,0 +1,10 @@
+.flexStyle {
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem 5rem;
+}
+
+.flexStyle h1 {
+  flex: 2 1 40rem;
+  text-align: center;
+}

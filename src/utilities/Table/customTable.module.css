@@ -1,0 +1,17 @@
+.paperStyle {
+  width: 90%;
+  margin: 20px auto;
+  overflow-y: auto;
+}
+
+.flexButtons {
+  display: flex;
+  gap: 1rem;
+}
+.header {
+  background-color: crimson;
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
