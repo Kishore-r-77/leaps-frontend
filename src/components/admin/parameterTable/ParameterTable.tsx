@@ -107,6 +107,9 @@ function ParameterTable() {
         };
       case ACTIONS.SORT_ASC:
         const asc = !state.sortAsc;
+        if (state.sortDesc) {
+          state.sortDesc = false;
+        }
         return {
           ...state,
           sortAsc: asc,
@@ -114,6 +117,9 @@ function ParameterTable() {
         };
       case ACTIONS.SORT_DESC:
         const desc = !state.sortDesc;
+        if (state.sortAsc) {
+          state.sortAsc = false;
+        }
         return {
           ...state,
           sortDesc: desc,

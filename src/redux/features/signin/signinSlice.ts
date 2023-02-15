@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
-import { userObj } from "../../../TsTypes/signinSlice";
+import { userObj } from "../../../TsTypes/signinSliceTypes";
 
 const initialState: userObj = {
   loading: false,
