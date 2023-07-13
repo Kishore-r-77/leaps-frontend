@@ -4,6 +4,7 @@ import React from "react";
 import { parameterModalType } from "../../../TsTypes/ParameterModalTypes";
 import CustomModal from "../../../utilities/modal/CustomModal";
 
+//ParamModal Component
 function ParameterModal({
   state,
   record,
@@ -14,9 +15,11 @@ function ParameterModal({
   const addTitle = "Parameter Add";
   const editTitle = "Parameter Edit";
   const infoTitle = "Parameter Info";
+  const size = "xl";
   return (
     <div>
       <CustomModal
+        size={size}
         open={
           state.addOpen
             ? state.addOpen
