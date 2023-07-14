@@ -1,3 +1,4 @@
+//Custom Pagination Types
 export type customPaginationProps = {
   pageNo: number;
   totalPages: number;

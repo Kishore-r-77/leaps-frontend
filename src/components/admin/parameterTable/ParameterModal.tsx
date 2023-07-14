@@ -4,7 +4,6 @@ import React from "react";
 import { parameterModalType } from "../../../TsTypes/ParameterModalTypes";
 import CustomModal from "../../../utilities/modal/CustomModal";
 
-//ParamModal Component
 function ParameterModal({
   state,
   record,
